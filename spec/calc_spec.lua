@@ -20,5 +20,18 @@ describe("FCA module calculating functions", function()
       assert.is_not.equal(c_x[1], x[1])
     end)
 
+  it("can calculate the Power Set",
+    function()
+      local x = {}
+      local c_x = fca.powerset(x)
+      assert.is_table(c_x)
+      assert.is.equal(1, #c_x)
+      assert.is.equal(0, #c_x[1])
+      x = { 1,2,3 }
+      c_x = fca.powerset(x)
+      assert.is_table(c_x)
+      assert.is.equal(8, #c_x)
+    end)
+
 end)
   

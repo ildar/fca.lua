@@ -80,4 +80,20 @@ function fca.closure(ctxt, x)
       ftr) )
 end
 
+function fca.powerset(x)
+  if #x == 0 then
+    return { {} }
+  else
+    local last = x[#x]
+    x[#x] = nil -- cut the last element
+    local ps1 = fca.powerset(x)
+    local ps2 = map(
+      function(e)
+        return totable ( iter(e):chain({last}) )
+      end,
+      ps1 )
+    return totable( iter(ps1):chain(ps2) )
+  end
+end
+
 return fca

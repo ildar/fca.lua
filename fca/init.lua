@@ -65,8 +65,12 @@ function fca.closure(ctxt, x)
       end,
       ctxt[x[1]], x) )
     
+  if not foldl( operator.lor, false, attrs ) then
+    return {}
+  end
+  
   -- filter all objs that has the attrs
-  local ftr = filter(
+  local filtrate = filter(
     function(i, obj)
       return contains(obj, attrs)
     end,    
@@ -77,7 +81,7 @@ function fca.closure(ctxt, x)
       function(i)
         return i
       end,
-      ftr) )
+      filtrate) )
 end
 
 function fca.powerset(x)

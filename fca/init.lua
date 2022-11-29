@@ -100,4 +100,20 @@ function fca.powerset(x)
   end
 end
 
+function fca.build_lattice(ctxt)
+  local ps = fca.powerset( totable( range(#ctxt) ) )
+  table.remove(ps, 1) -- remove Empty Set
+  
+  local filtrate = filter(
+    function(e)
+      local cl = fca.closure(ctxt, e)
+      return #cl > 0
+    end,
+    ps )
+  
+  local res = totable( filtrate )
+  res.context = ctxt
+  return res
+end
+
 return fca

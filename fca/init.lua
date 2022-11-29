@@ -1,4 +1,5 @@
-require "fun" ()
+-- require "fun" () -- imported in fca.sets
+local sets = require 'fca.sets'
 
 local fca ={}
 fca.context = {}
@@ -44,14 +45,6 @@ function fca.context.from_csv(fname, delim)
   return ctxt
 end
 
-local function contains(A, B) -- A contains B, i.e. B is a subset of A ?
-  return foldl(
-    function(acc, a, b)
-      if b then return acc and a else return acc end
-    end,
-    true, zip(A,B) )
-end
-
 function fca.closure(ctxt, x)
   -- get the set of common attr for all the objs in x
   local attrs = totable(
@@ -72,7 +65,7 @@ function fca.closure(ctxt, x)
   -- filter all objs that has the attrs
   local filtrate = filter(
     function(i, obj)
-      return contains(obj, attrs)
+      return sets.contains_by_index(obj, attrs)
     end,    
     enumerate(ctxt) )
   --return only indices

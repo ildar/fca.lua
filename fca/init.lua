@@ -77,24 +77,8 @@ function fca.closure(ctxt, x)
       filtrate) )
 end
 
-function fca.powerset(x)
-  if #x == 0 then
-    return { {} }
-  else
-    local last = x[#x]
-    x[#x] = nil -- cut the last element
-    local ps1 = fca.powerset(x)
-    local ps2 = map(
-      function(e)
-        return totable ( iter(e):chain({last}) )
-      end,
-      ps1 )
-    return totable( iter(ps1):chain(ps2) )
-  end
-end
-
 function fca.build_lattice(ctxt)
-  local ps = fca.powerset( totable( range(#ctxt) ) )
+  local ps = sets.powerset( totable( range(#ctxt) ) )
   table.remove(ps, 1) -- remove Empty Set
   
   local filtrate = filter(

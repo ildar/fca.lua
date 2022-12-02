@@ -89,6 +89,10 @@ function fca.build_lattice(ctxt)
     ps )
   
   local res = totable( filtrate )
+  if res[#res] ~= #ctxt then -- add the "1" element
+    table.insert(res, totable( range(#ctxt) ) )
+  end
+  
   res.context = ctxt
   return res
 end

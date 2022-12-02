@@ -7,6 +7,7 @@ describe("FCA module lattice function", function()
       local lattice = fca.build_lattice(context)
       assert.is_table(lattice)
       assert.is_not.equal(math.pow(2, #context), #lattice)
+      assert.is.equal(#context, #lattice[#lattice], '"1" element not included')
     end)
 
 end)
